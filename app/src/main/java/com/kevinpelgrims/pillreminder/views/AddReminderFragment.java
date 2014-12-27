@@ -48,6 +48,11 @@ public class AddReminderFragment extends PRFragment {
         showTimePickerDialog();
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.add_reminder, menu);
+    }
+
     @OnClick(R.id.add_reminder_alarm_time)
     public void showTimePickerDialog() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
@@ -65,10 +70,5 @@ public class AddReminderFragment extends PRFragment {
     private void setAlarmTimeText() {
         String formattedTime = String.format("%02d:%02d", mSelectedHour, mSelectedMinute);
         mAlarmTimeView.setText(formattedTime);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.add_reminder, menu);
     }
 }
