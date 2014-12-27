@@ -8,26 +8,30 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context=".ui.AddReminderActivity">
+    tools:context=".views.MainActivity">
+
+    <TextView
+        android:id="@+id/add_reminder_alarm_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="4dp"
+        android:textSize="@dimen/text_size_time"
+        android:fontFamily="sans-serif-light"
+        tools:text="@string/add_reminder_alarm"/>
 
     <EditText
         android:id="@+id/add_reminder_pill_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/default_margin"
         android:hint="@string/add_reminder_pill_name"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="@dimen/text_size_medium"
-        android:text="@string/add_reminder_alarm"/>
-
-    <!-- TODO: Alarm time -->
 
     <EditText
         android:id="@+id/add_reminder_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:height="@dimen/control_size_big"
         android:hint="@string/add_reminder_note"/>
 
 </LinearLayout>
