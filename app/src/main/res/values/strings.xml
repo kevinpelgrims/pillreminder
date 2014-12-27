@@ -2,4 +2,7 @@
     <string name="app_name">Pill Reminder</string>
 
     <string name="title_activity_main">Pill reminder</string>
+
+    <string name="interval_daily">Daily</string>
+    <string name="interval_at">%1$s at %2$s</string>
 </resources>

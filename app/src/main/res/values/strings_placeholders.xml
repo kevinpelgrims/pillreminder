@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="placeholder_widget_reminder_pill_name">Birth control</string>
+    <string name="placeholder_widget_reminder_time">22:00</string>
+</resources>
