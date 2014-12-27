@@ -1,5 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.kevinpelgrims.pillreminder">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <permission
+        android:name="com.example.gcm.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.gcm.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
@@ -8,7 +20,7 @@
         android:theme="@style/Theme.PillReminder">
 
         <activity
-            android:name="com.kevinpelgrims.pillreminder.views.MainActivity"
+            android:name=".views.MainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,7 +28,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>
