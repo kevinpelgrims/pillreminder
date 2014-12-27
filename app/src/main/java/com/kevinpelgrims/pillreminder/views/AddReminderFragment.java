@@ -15,9 +15,14 @@ import com.kevinpelgrims.pillreminder.R;
 
 import java.util.Calendar;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
 public class AddReminderFragment extends PRFragment {
     private int mSelectedHour, mSelectedMinute;
-    private TextView mAlarmTimeView;
+    @InjectView(R.id.add_reminder_alarm_time) TextView mAlarmTimeView;
+    @InjectView(R.id.add_reminder_pill_name) TextView mNameView;
+    @InjectView(R.id.add_reminder_note) TextView mNoteView;
 
     public static AddReminderFragment newInstance() {
         return new AddReminderFragment();
@@ -31,13 +36,14 @@ public class AddReminderFragment extends PRFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_add_reminder, container, false);
+        View view = inflater.inflate(R.layout.fragment_add_reminder, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAlarmTimeView = (TextView) view.findViewById(R.id.add_reminder_alarm_time);
         mAlarmTimeView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
