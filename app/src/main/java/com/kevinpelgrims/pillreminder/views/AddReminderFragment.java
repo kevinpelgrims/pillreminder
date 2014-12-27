@@ -17,6 +17,7 @@ import java.util.Calendar;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 public class AddReminderFragment extends PRFragment {
     private int mSelectedHour, mSelectedMinute;
@@ -44,16 +45,11 @@ public class AddReminderFragment extends PRFragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mAlarmTimeView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showTimePickerDialog();
-            }
-        });
         showTimePickerDialog();
     }
 
-    private void showTimePickerDialog() {
+    @OnClick(R.id.add_reminder_alarm_time)
+    public void showTimePickerDialog() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
