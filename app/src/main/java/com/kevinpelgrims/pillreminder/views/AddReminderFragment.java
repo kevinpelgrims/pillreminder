@@ -1,6 +1,7 @@
 package com.kevinpelgrims.pillreminder.views;
 
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -20,7 +21,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class AddReminderFragment extends PRFragment {
-    private int mSelectedHour, mSelectedMinute;
+    private int mSelectedHour = 8, mSelectedMinute = 0;
     @InjectView(R.id.add_reminder_alarm_time) TextView mAlarmTimeView;
     @InjectView(R.id.add_reminder_pill_name) TextView mNameView;
     @InjectView(R.id.add_reminder_note) TextView mNoteView;
@@ -63,7 +64,20 @@ public class AddReminderFragment extends PRFragment {
                 setAlarmTimeText();
             }
         }, Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0, true);
-        timePickerDialog.setTitle("Select time");
+        timePickerDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                setAlarmTimeText();
+            }
+        });
+        timePickerDialog.setButton(DialogInterface.BUTTON_NEGATIVE,
+                getString(android.R.string.cancel),
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        setAlarmTimeText();
+                    }
+                });
         timePickerDialog.show();
     }
 
