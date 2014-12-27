@@ -3,6 +3,14 @@
 
     <string name="title_activity_main">Pill reminder</string>
 
+    <string name="action_add">Add</string>
+    <string name="action_save">Save</string>
+
     <string name="interval_daily">Daily</string>
     <string name="interval_at">%1$s at %2$s</string>
+
+    <string name="add_reminder_pill_name">Pill name</string>
+    <string name="add_reminder_alarm">Alarm</string>
+    <string name="add_reminder_add_alarm">Add alarm</string>
+    <string name="add_reminder_note">Note</string>
 </resources>
