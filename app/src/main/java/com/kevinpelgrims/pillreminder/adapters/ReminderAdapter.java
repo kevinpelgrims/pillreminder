@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.kevinpelgrims.pillreminder.R;
 import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
+import com.kevinpelgrims.pillreminder.utils.Formatter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Reminder reminder = reminders.get(position);
         holder.pillName.setText(reminder.getPillName());
-        holder.interval.setText(reminder.getHour().toString());
+        holder.interval.setText(Formatter.formatTime(reminder.getHour(), reminder.getMinute()));
     }
 
     @Override

@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.kevinpelgrims.pillreminder.R;
 import com.kevinpelgrims.pillreminder.api.ApiManager;
 import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
+import com.kevinpelgrims.pillreminder.utils.Formatter;
 
 import java.util.Calendar;
 
@@ -94,8 +95,7 @@ public class AddReminderFragment extends PRFragment {
     }
 
     private void setAlarmTimeText() {
-        String formattedTime = String.format("%02d:%02d", mSelectedHour, mSelectedMinute);
-        mAlarmTimeView.setText(formattedTime);
+        mAlarmTimeView.setText(Formatter.formatTime(mSelectedHour, mSelectedMinute));
     }
 
     private void saveReminder() {
