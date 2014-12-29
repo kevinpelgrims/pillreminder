@@ -3,10 +3,14 @@ package com.kevinpelgrims.pillreminder.backend;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.google.api.server.spi.response.ConflictException;
+import com.google.api.server.spi.response.NotFoundException;
 
 import java.util.logging.Logger;
 
 import javax.inject.Named;
+
+import static com.kevinpelgrims.pillreminder.backend.OfyService.ofy;
 
 /**
  * An endpoint class we are exposing
@@ -33,9 +37,9 @@ public class ReminderEndpoint {
      */
     @ApiMethod(name = "getReminder")
     public Reminder getReminder(@Named("id") Long id) {
-        // TODO: Implement this function
         logger.info("Calling getReminder method");
-        return null;
+        return ofy().load().type(Reminder.class).id(id).now();
+        // Also an option: type(..).filter("id",id).first.now();
     }
 
     /**
@@ -45,9 +49,45 @@ public class ReminderEndpoint {
      * @return The object to be added.
      */
     @ApiMethod(name = "insertReminder")
-    public Reminder insertReminder(Reminder reminder) {
-        // TODO: Implement this function
+    public Reminder insertReminder(Reminder reminder) throws ConflictException {
         logger.info("Calling insertReminder method");
+        if (reminder.getId() != null && getReminder(reminder.getId()) != null) {
+            throw new ConflictException("Reminder already exists");
+        }
+        ofy().save().entity(reminder).now();
         return reminder;
+    }
+
+    /**
+     * This updates an existing <code>Reminder</code> object.
+     *
+     * @param reminder The object to be updated.
+     * @return The object to be updated.
+     * @throws NotFoundException
+     */
+    @ApiMethod(name = "updateReminder")
+    public Reminder updateReminder(Reminder reminder) throws NotFoundException {
+        logger.info("Calling updateReminder method");
+        if (reminder.getId() == null || getReminder(reminder.getId()) == null) {
+            throw new NotFoundException("Reminder does not exist");
+        }
+        ofy().save().entity(reminder).now();
+        return reminder;
+    }
+
+    /**
+     * This deletes an existing <code>Reminder</code> object.
+     *
+     * @param id The id of the object to be deleted.
+     * @throws NotFoundException
+     */
+    @ApiMethod(name = "deleteReminder")
+    public void deleteReminder(@Named("id") Long id) throws NotFoundException {
+        logger.info("Calling deleteReminder method");
+        Reminder reminder = getReminder(id);
+        if (reminder == null) {
+            throw new NotFoundException("Reminder does not exist");
+        }
+        ofy().delete().entity(reminder).now();
     }
 }
