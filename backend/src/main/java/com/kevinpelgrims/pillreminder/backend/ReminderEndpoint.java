@@ -6,6 +6,7 @@ import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.response.ConflictException;
 import com.google.api.server.spi.response.NotFoundException;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.inject.Named;
@@ -28,6 +29,17 @@ import static com.kevinpelgrims.pillreminder.backend.OfyService.ofy;
 public class ReminderEndpoint {
 
     private static final Logger logger = Logger.getLogger(ReminderEndpoint.class.getName());
+
+    /**
+     * This method returns a list of <code>Reminder</code> objects
+     *
+     * @return A list of <code>Reminder</code> objects
+     */
+    @ApiMethod(name = "listReminder")
+    public List<Reminder> listReminder() {
+        logger.info("Calling listReminder method");
+        return ofy().load().type(Reminder.class).list();
+    }
 
     /**
      * This method gets the <code>Reminder</code> object associated with the specified <code>id</code>.
