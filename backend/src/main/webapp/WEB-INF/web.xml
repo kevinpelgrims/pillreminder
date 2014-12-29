@@ -14,8 +14,8 @@
         <init-param>
             <param-name>services</param-name>
             <param-value>com.kevinpelgrims.pillreminder.backend.RegistrationEndpoint,
-                com.kevinpelgrims.pillreminder.backend.MessagingEndpoint
-            </param-value>
+                com.kevinpelgrims.pillreminder.backend.MessagingEndpoint,
+                com.kevinpelgrims.pillreminder.backend.ReminderEndpoint</param-value>
         </init-param>
     </servlet>
     <servlet-mapping>
