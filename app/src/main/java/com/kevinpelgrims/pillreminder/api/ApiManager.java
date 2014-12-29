@@ -11,8 +11,11 @@ import com.kevinpelgrims.pillreminder.backend.reminderApi.ReminderApi;
 import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
 
 import java.io.IOException;
+import java.util.List;
 
 public class ApiManager {
+    private static final String TAG = "Reminder API";
+
     private static ApiManager mInstance;
     private static ReminderApi mReminderApi;
 
@@ -52,16 +55,32 @@ public class ApiManager {
         void error(Error error);
     }
 
+    public void listReminder(final Callback<List<Reminder>> callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    List<Reminder> reminders = mReminderApi.listReminder().execute().getItems();
+                    Log.d(TAG, "Successfully retrieved list of reminders");
+                    callback.success(reminders);
+                } catch (IOException e) {
+                    Log.d(TAG, "Failed to get list of reminders", e);
+                    callback.error(new Error(e.getMessage(), e));
+                }
+            }
+        }).start();
+    }
+
     public void insertReminder(final Reminder reminder, final Callback<Reminder> callback) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     Reminder reminderResponse = mReminderApi.insertReminder(reminder).execute();
-                    Log.d("Reminder API", "Inserted reminder with ID " + reminder.getId());
+                    Log.d(TAG, "Inserted reminder with ID " + reminder.getId());
                     callback.success(reminderResponse);
                 } catch (IOException e) {
-                    Log.d("Reminder API", "Failed to insert reminder", e);
+                    Log.d(TAG, "Failed to insert reminder", e);
                     callback.error(new Error(e.getMessage(), e));
                 }
             }
