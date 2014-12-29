@@ -10,10 +10,10 @@
     android:orientation="vertical"
     tools:context=".views.MainActivity">
 
-    <include
-        layout="@layout/widget_reminder"/>
-
-    <include
-        layout="@layout/widget_reminder"/>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/reminders_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
 </LinearLayout>

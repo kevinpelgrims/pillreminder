@@ -1,0 +1,53 @@
+package com.kevinpelgrims.pillreminder.adapters;
+
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.kevinpelgrims.pillreminder.R;
+import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+
+public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
+    private List<Reminder> reminders;
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        @InjectView(R.id.widget_reminder_pill_name) public TextView pillName;
+        @InjectView(R.id.widget_reminder_interval) public TextView interval;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+            ButterKnife.inject(this, itemView);
+        }
+    }
+
+    public ReminderAdapter(List<Reminder> reminders) {
+        this.reminders = reminders != null ? reminders : new ArrayList<Reminder>();
+    }
+
+    @Override
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                                  .inflate(R.layout.widget_reminder, parent, false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Reminder reminder = reminders.get(position);
+        holder.pillName.setText(reminder.getPillName());
+        holder.interval.setText(reminder.getHour().toString());
+    }
+
+    @Override
+    public int getItemCount() {
+        return reminders.size();
+    }
+}
