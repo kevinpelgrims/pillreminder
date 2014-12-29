@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:foreground="?android:attr/selectableItemBackground"
     android:clickable="true"
+    card_view:cardUseCompatPadding="true"
     card_view:cardCornerRadius="@dimen/cardview_default_radius">
 
     <RelativeLayout
@@ -19,16 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_medium"
-            android:text="@string/placeholder_widget_reminder_pill_name"
-            tools:text="@string/placeholder_widget_reminder_pill_name"/> <!-- TODO: Remove android:text -->
+            tools:text="@string/placeholder_widget_reminder_pill_name"/>
 
         <TextView
             android:id="@+id/widget_reminder_interval"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_reminder_pill_name"
-            android:text="@string/interval_at"
-            tools:text="@string/interval_at"/> <!-- TODO: Remove android:text -->
+            tools:text="@string/interval_at"/>
 
     </RelativeLayout>
 
