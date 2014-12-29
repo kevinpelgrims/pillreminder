@@ -1,6 +1,11 @@
 package com.kevinpelgrims.pillreminder.backend;
 
+import com.googlecode.objectify.annotation.Entity;
+import com.googlecode.objectify.annotation.Id;
+
+@Entity
 public class Reminder {
+    @Id
     private Long id;
     private Integer hour;
     private Integer minute;
