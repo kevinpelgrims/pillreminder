@@ -33,7 +33,8 @@ public class MainActivity extends PRActivity implements FragmentManager.OnBackSt
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 return true;
             case R.id.action_save:
-                return true;
+                //getSupportFragmentManager().popBackStackImmediate();
+                return false;
             default:
                 return super.onOptionsItemSelected(item);
         }

@@ -7,12 +7,16 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.kevinpelgrims.pillreminder.R;
+import com.kevinpelgrims.pillreminder.api.ApiManager;
+import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
 
 import java.util.Calendar;
 
@@ -54,6 +58,14 @@ public class AddReminderFragment extends PRFragment {
         inflater.inflate(R.menu.add_reminder, menu);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.action_save) {
+            saveReminder();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @OnClick(R.id.add_reminder_alarm_time)
     public void showTimePickerDialog() {
         TimePickerDialog timePickerDialog = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
@@ -84,5 +96,35 @@ public class AddReminderFragment extends PRFragment {
     private void setAlarmTimeText() {
         String formattedTime = String.format("%02d:%02d", mSelectedHour, mSelectedMinute);
         mAlarmTimeView.setText(formattedTime);
+    }
+
+    private void saveReminder() {
+        Reminder reminder = new Reminder();
+        reminder.setHour(mSelectedHour);
+        reminder.setMinute(mSelectedMinute);
+        reminder.setPillName(mNameView.getText().toString());
+        reminder.setNote(mNoteView.getText().toString());
+
+        ApiManager.getInstance().insertReminder(reminder, new ApiManager.Callback<Reminder>() {
+            @Override
+            public void success(Reminder response) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Reminder saved", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+
+            @Override
+            public void error(Error error) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Saving reminder failed", Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        });
     }
 }
