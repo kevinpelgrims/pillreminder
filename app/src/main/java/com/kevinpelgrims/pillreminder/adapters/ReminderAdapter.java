@@ -1,5 +1,6 @@
 package com.kevinpelgrims.pillreminder.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHolder> {
+    private Context context;
     private List<Reminder> reminders;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -29,7 +31,8 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
         }
     }
 
-    public ReminderAdapter(List<Reminder> reminders) {
+    public ReminderAdapter(Context context, List<Reminder> reminders) {
+        this.context = context;
         this.reminders = reminders != null ? reminders : new ArrayList<Reminder>();
     }
 
@@ -44,7 +47,10 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Reminder reminder = reminders.get(position);
         holder.pillName.setText(reminder.getPillName());
-        holder.interval.setText(Formatter.formatTime(reminder.getHour(), reminder.getMinute()));
+        String interval = context.getString(R.string.interval_at,
+                context.getString(R.string.interval_daily),
+                Formatter.formatTime(reminder.getHour(), reminder.getMinute()));
+        holder.interval.setText(interval);
     }
 
     @Override

@@ -85,7 +85,7 @@ public class MainFragment extends PRFragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         remindersListView.setLayoutManager(layoutManager);
 
-        RecyclerView.Adapter adapter = new ReminderAdapter(reminders);
+        RecyclerView.Adapter adapter = new ReminderAdapter(getActivity(), reminders);
         remindersListView.setAdapter(adapter);
     }
 }

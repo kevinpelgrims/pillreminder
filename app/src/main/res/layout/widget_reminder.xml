@@ -19,7 +19,7 @@
             android:id="@+id/widget_reminder_pill_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_size_medium"
+            android:textSize="@dimen/text_size_big"
             tools:text="@string/placeholder_widget_reminder_pill_name"/>
 
         <TextView
@@ -27,6 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/widget_reminder_pill_name"
+            android:textSize="@dimen/text_size_medium"
             tools:text="@string/interval_at"/>
 
     </RelativeLayout>
