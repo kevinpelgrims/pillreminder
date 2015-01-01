@@ -25,6 +25,7 @@ public class MainActivity extends PRActivity implements FragmentManager.OnBackSt
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
+                KeyboardHelper.hideSoftKeyboard(MainActivity.this);
                 getSupportFragmentManager().popBackStackImmediate();
                 return true;
             case R.id.action_add:
