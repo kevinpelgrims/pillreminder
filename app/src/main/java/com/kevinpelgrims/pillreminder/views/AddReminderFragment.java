@@ -27,6 +27,7 @@ import butterknife.OnClick;
 
 public class AddReminderFragment extends PRFragment {
     private int mSelectedHour = 8, mSelectedMinute = 0;
+
     @InjectView(R.id.add_reminder_alarm_time) TextView mAlarmTimeView;
     @InjectView(R.id.add_reminder_pill_name) TextView mNameView;
     @InjectView(R.id.add_reminder_note) TextView mNoteView;
@@ -111,7 +112,7 @@ public class AddReminderFragment extends PRFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), "Reminder saved", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Reminder saved", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -121,7 +122,7 @@ public class AddReminderFragment extends PRFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), "Saving reminder failed", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Saving reminder failed", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
