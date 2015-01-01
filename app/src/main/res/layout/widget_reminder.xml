@@ -30,6 +30,15 @@
             android:textSize="@dimen/text_size_medium"
             tools:text="@string/interval_at"/>
 
+        <TextView
+            android:id="@+id/widget_reminder_note"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/widget_reminder_interval"
+            android:layout_marginTop="@dimen/default_margin"
+            android:textSize="@dimen/text_size_normal"
+            tools:text="@string/placeholder_widget_reminder_note"/>
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

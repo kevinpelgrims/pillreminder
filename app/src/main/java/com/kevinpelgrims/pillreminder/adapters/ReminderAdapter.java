@@ -24,6 +24,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
     public static class ViewHolder extends RecyclerView.ViewHolder {
         @InjectView(R.id.widget_reminder_pill_name) public TextView pillName;
         @InjectView(R.id.widget_reminder_interval) public TextView interval;
+        @InjectView(R.id.widget_reminder_note) public TextView note;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -51,6 +52,7 @@ public class ReminderAdapter extends RecyclerView.Adapter<ReminderAdapter.ViewHo
                 context.getString(R.string.interval_daily),
                 Formatter.formatTime(reminder.getHour(), reminder.getMinute()));
         holder.interval.setText(interval);
+        holder.note.setText(reminder.getNote());
     }
 
     @Override
