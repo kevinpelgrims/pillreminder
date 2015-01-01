@@ -156,6 +156,7 @@ public class EditReminderFragment extends PRFragment {
                     @Override
                     public void run() {
                         Toast.makeText(getActivity(), "Reminder updated", Toast.LENGTH_SHORT).show();
+                        onPRFragmentInteractionListener.OnFragmentCloseRequest();
                     }
                 });
             }
