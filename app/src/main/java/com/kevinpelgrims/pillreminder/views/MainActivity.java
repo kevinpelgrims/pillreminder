@@ -6,6 +6,7 @@ import android.view.MenuItem;
 
 import com.kevinpelgrims.pillreminder.R;
 import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
+import com.kevinpelgrims.pillreminder.utils.KeyboardHelper;
 
 public class MainActivity extends PRActivity implements FragmentManager.OnBackStackChangedListener, PRFragment.OnPRFragmentInteractionListener, MainFragment.OnMainFragmentInteractionListener {
     @Override
@@ -47,6 +48,7 @@ public class MainActivity extends PRActivity implements FragmentManager.OnBackSt
 
     @Override
     public void OnFragmentCloseRequest() {
+        KeyboardHelper.hideSoftKeyboard(MainActivity.this);
         getSupportFragmentManager().popBackStackImmediate();
     }
 
