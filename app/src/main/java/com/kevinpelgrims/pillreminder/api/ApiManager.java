@@ -71,6 +71,22 @@ public class ApiManager {
         }).start();
     }
 
+    public void getReminder(final Long id, final Callback<Reminder> callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Reminder reminderResponse = mReminderApi.getReminder(id).execute();
+                    Log.d(TAG, "Got reminder with ID " + id);
+                    callback.success(reminderResponse);
+                } catch (IOException e) {
+                    Log.d(TAG, "Failed to get reminder with ID " + id);
+                    callback.error(new Error(e.getMessage(), e));
+                }
+            }
+        }).start();
+    }
+
     public void insertReminder(final Reminder reminder, final Callback<Reminder> callback) {
         new Thread(new Runnable() {
             @Override
@@ -81,6 +97,22 @@ public class ApiManager {
                     callback.success(reminderResponse);
                 } catch (IOException e) {
                     Log.d(TAG, "Failed to insert reminder", e);
+                    callback.error(new Error(e.getMessage(), e));
+                }
+            }
+        }).start();
+    }
+
+    public void updateReminder(final Reminder reminder, final Callback<Reminder> callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Reminder reminderResponse = mReminderApi.updateReminder(reminder).execute();
+                    Log.d(TAG, "Updated reminder with ID " + reminder.getId());
+                    callback.success(reminderResponse);
+                } catch (IOException e) {
+                    Log.d(TAG, "Failed to update reminder", e);
                     callback.error(new Error(e.getMessage(), e));
                 }
             }
