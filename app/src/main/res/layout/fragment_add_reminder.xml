@@ -25,12 +25,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/default_margin"
+        android:inputType="textCapWords"
         android:hint="@string/add_reminder_pill_name"/>
 
     <EditText
         android:id="@+id/add_reminder_note"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textCapSentences"
         android:height="@dimen/control_size_big"
         android:hint="@string/add_reminder_note"/>
 
