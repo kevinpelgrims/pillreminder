@@ -5,8 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 
 import com.kevinpelgrims.pillreminder.R;
+import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
 
-public class MainActivity extends PRActivity implements FragmentManager.OnBackStackChangedListener {
+public class MainActivity extends PRActivity implements FragmentManager.OnBackStackChangedListener, MainFragment.OnMainFragmentInteractionListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,5 +46,15 @@ public class MainActivity extends PRActivity implements FragmentManager.OnBackSt
         if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof MainFragment) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         }
+    }
+
+    @Override
+    public void OnReminderClick(Reminder reminder) {
+        EditReminderFragment fragment = EditReminderFragment.newInstance(reminder);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack("edit")
+                .commit();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

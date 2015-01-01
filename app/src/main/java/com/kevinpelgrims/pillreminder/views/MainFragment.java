@@ -1,5 +1,6 @@
 package com.kevinpelgrims.pillreminder.views;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.kevinpelgrims.pillreminder.R;
+import com.kevinpelgrims.pillreminder.ReminderRecyclerItemClickListener;
 import com.kevinpelgrims.pillreminder.adapters.ReminderAdapter;
 import com.kevinpelgrims.pillreminder.api.ApiManager;
 import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
@@ -23,10 +25,29 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 public class MainFragment extends PRFragment {
+    private OnMainFragmentInteractionListener mListener;
+
     @InjectView(R.id.reminders_list) RecyclerView remindersListView;
 
     public static MainFragment newInstance() {
         return new MainFragment();
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        try {
+            mListener = (OnMainFragmentInteractionListener) activity;
+        }
+        catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString() + " must implement OnMainFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
     @Override
@@ -63,7 +84,7 @@ public class MainFragment extends PRFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), String.format("Retrieved all reminders, all %d of them!", reminders.size()), Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), String.format("Retrieved all reminders, all %d of them!", reminders.size()), Toast.LENGTH_SHORT).show();
                         setUpReminderListView(reminders);
                     }
                 });
@@ -74,18 +95,32 @@ public class MainFragment extends PRFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), "Retrieving reminders failed", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity(), "Retrieving reminders failed", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
         });
     }
 
-    private void setUpReminderListView(List<Reminder> reminders) {
+    private void setUpReminderListView(final List<Reminder> reminders) {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
         remindersListView.setLayoutManager(layoutManager);
 
         RecyclerView.Adapter adapter = new ReminderAdapter(getActivity(), reminders);
         remindersListView.setAdapter(adapter);
+
+        remindersListView.removeOnItemTouchListener(itemClickListener);
+        remindersListView.addOnItemTouchListener(itemClickListener);
+    }
+
+    final ReminderRecyclerItemClickListener itemClickListener = new ReminderRecyclerItemClickListener(getActivity(), new ReminderRecyclerItemClickListener.OnItemClickListener() {
+        @Override
+        public void onItemClick(View view, int position) {
+            mListener.OnReminderClick(((ReminderAdapter) remindersListView.getAdapter()).getItem(position));
+        }
+    });
+
+    public interface OnMainFragmentInteractionListener {
+        public void OnReminderClick(Reminder reminder);
     }
 }
