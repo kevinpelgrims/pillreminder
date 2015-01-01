@@ -174,6 +174,27 @@ public class EditReminderFragment extends PRFragment {
     }
 
     private void deleteReminder() {
-        //TODO
+        ApiManager.getInstance().deleteReminder(reminder.getId(), new ApiManager.Callback<Boolean>() {
+            @Override
+            public void success(Boolean response) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Reminder deleted", Toast.LENGTH_SHORT).show();
+                        onPRFragmentInteractionListener.OnFragmentCloseRequest();
+                    }
+                });
+            }
+
+            @Override
+            public void error(Error error) {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getActivity(), "Deleting reminder failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 }

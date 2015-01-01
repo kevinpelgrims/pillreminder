@@ -118,4 +118,20 @@ public class ApiManager {
             }
         }).start();
     }
+
+    public void deleteReminder(final Long id, final Callback<Boolean> callback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    mReminderApi.deleteReminder(id).execute();
+                    Log.d(TAG, "Deleted reminder with ID " + id);
+                    callback.success(true);
+                } catch (IOException e) {
+                    Log.d(TAG, "Failed to delete reminder with ID " + id);
+                    callback.error(new Error(e.getMessage(), e));
+                }
+            }
+        }).start();
+    }
 }
