@@ -17,6 +17,7 @@ import com.kevinpelgrims.pillreminder.ReminderRecyclerItemClickListener;
 import com.kevinpelgrims.pillreminder.adapters.ReminderAdapter;
 import com.kevinpelgrims.pillreminder.api.ApiManager;
 import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
+import com.kevinpelgrims.pillreminder.utils.AlarmManagerHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,6 +87,7 @@ public class MainFragment extends PRFragment {
                     public void run() {
                         Toast.makeText(getActivity(), String.format("Retrieved all reminders, all %d of them!", reminders.size()), Toast.LENGTH_SHORT).show();
                         setUpReminderListView(reminders);
+                        AlarmManagerHelper.setUpReminderAlarms(getActivity(), reminders);
                     }
                 });
             }

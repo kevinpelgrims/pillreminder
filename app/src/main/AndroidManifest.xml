@@ -3,6 +3,7 @@
     package="com.kevinpelgrims.pillreminder">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -18,6 +19,8 @@
         android:label="@string/app_name"
         android:icon="@drawable/ic_launcher"
         android:theme="@style/Theme.PillReminder">
+
+        <receiver android:name=".receivers.ReminderAlarmReceiver" />
 
         <activity
             android:name=".views.MainActivity"
