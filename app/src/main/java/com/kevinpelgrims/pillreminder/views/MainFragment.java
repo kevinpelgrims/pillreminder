@@ -85,7 +85,6 @@ public class MainFragment extends PRFragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getActivity(), String.format("Retrieved all reminders, all %d of them!", reminders.size()), Toast.LENGTH_SHORT).show();
                         setUpReminderListView(reminders);
                         AlarmManagerHelper.setUpReminderAlarms(getActivity(), reminders);
                     }
