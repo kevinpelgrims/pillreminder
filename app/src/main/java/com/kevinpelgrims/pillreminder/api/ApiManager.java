@@ -6,6 +6,7 @@ import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
 import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
 import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+import com.kevinpelgrims.pillreminder.BuildValues;
 import com.kevinpelgrims.pillreminder.Constants;
 import com.kevinpelgrims.pillreminder.backend.reminderApi.ReminderApi;
 import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
@@ -34,8 +35,8 @@ public class ApiManager {
     private static void initializeReminderApi() {
         ReminderApi.Builder builder = new ReminderApi.Builder(AndroidHttp.newCompatibleTransport(),
                 new AndroidJsonFactory(), null)
-                .setRootUrl(Constants.API_URL);
-        if (Constants.ENVIRONMENT.equals(Constants.ENVIRONMENT_DEBUG)) {
+                .setRootUrl(BuildValues.API_URL);
+        if (BuildValues.ENVIRONMENT.equals(Constants.ENVIRONMENT_DEBUG)) {
             builder.setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
                 @Override
                 public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
