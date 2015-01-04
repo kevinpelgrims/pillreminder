@@ -7,6 +7,12 @@
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
 
+    <string name="action_snooze">Snooze</string>
+    <string name="action_dismiss">Dismiss</string>
+
+    <string name="notification_title">Time for your medication!</string>
+    <string name="notification_description">It\'s time to take %s</string>
+
     <string name="interval_daily">Daily</string>
     <string name="interval_at">%1$s at %2$s</string>
 

@@ -3,7 +3,6 @@ package com.kevinpelgrims.pillreminder.utils;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 
 import com.kevinpelgrims.pillreminder.backend.reminderApi.model.Reminder;
@@ -18,19 +17,13 @@ public class AlarmManagerHelper {
         setAlarms(context, reminders);
     }
 
-    private static PendingIntent createReminderAlarmIntent(Context context, Reminder reminder) {
-        Intent intent = new Intent(context, ReminderAlarmReceiver.class);
-        intent.putExtra("id", reminder.getId());
-        intent.putExtra("name", reminder.getPillName());
-        intent.putExtra("hour", reminder.getHour());
-        intent.putExtra("minute", reminder.getMinute());
-        intent.putExtra("note", reminder.getNote());
-
-        return PendingIntent.getBroadcast(context, reminder.getId().intValue(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+    public static void setUpReminderAlarm(Context context, Reminder reminder) {
+        cancelAlarm(context, reminder);
+        setAlarm(context, reminder);
     }
 
     private static void cancelAlarm(Context context, Reminder reminder) {
-        PendingIntent intent = createReminderAlarmIntent(context, reminder);
+        PendingIntent intent = ReminderAlarmReceiver.createPendingIntent(context, reminder, ReminderAlarmReceiver.BROADCAST_TYPE_ALARM_TRIGGER);
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(intent);
     }
@@ -59,10 +52,10 @@ public class AlarmManagerHelper {
         alarmTime.set(Calendar.SECOND, 0);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), createReminderAlarmIntent(context, reminder));
+            alarmManager.setExact(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), ReminderAlarmReceiver.createPendingIntent(context, reminder, ReminderAlarmReceiver.BROADCAST_TYPE_ALARM_TRIGGER));
         }
         else {
-            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), createReminderAlarmIntent(context, reminder));
+            alarmManager.set(AlarmManager.RTC_WAKEUP, alarmTime.getTimeInMillis(), ReminderAlarmReceiver.createPendingIntent(context, reminder, ReminderAlarmReceiver.BROADCAST_TYPE_ALARM_TRIGGER));
         }
     }
 
